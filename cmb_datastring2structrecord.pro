@@ -13,7 +13,7 @@ if KEYWORD_SET(noepoch) eq 0 then begin
    i0 = 0
 endif else i0 = 1
 for i=i0, np -1 do BEGIN
-    vname = j.parameters[i].name
+    vname = cmb_valid_var_name( j.parameters[i].name )
     if  i eq 0 then vname = 'epochstring'
     if cmb_tag_name_exists('type',j.parameters[i]) then type = j.parameters[i].type else type ='undefined'
 	if cmb_tag_name_exists('size', j.parameters[i]) then BEGIN

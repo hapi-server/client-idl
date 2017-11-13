@@ -1,11 +1,22 @@
-function cmb_hapidatashop_catalog,serverid , selectdataset=selectdataset, plusinfo=plusinfo
+function cmb_catalog_id_only,a
+sid = '"id":' 
+ip = strpos(a,sid)  
+k=where( ip ne -1)
+ids = strtrim(a[k],2)
+for i=0, n_elements(k)-1 do begin
+    y = strsplit(ids[i],'"',/ext)
+    ids[i] = y[2]
+endfor
+return, ids
+end
+
+function cmb_hapidatashop_catalog,server , selectdataset=selectdataset, plusinfo=plusinfo
 ; cat = cmb_hapidatashop_catalog(serverid, selectdataset=selectdataset)
 ; cat = cmb_hapidatashop_catalog(serverid, selectdataset=selectdataset,/plusinfo)
-server = cmb_hapi_listofservers(serverid)
 	cataloga = server + '/catalog'
 	a = wget(cataloga,/string)
-	j = JSON_PARSE(cmb_str_flatten(a), /tostruct, /toarray)
-	ids = j.catalog.id
+	j = JSON_PARSE(cmb_str_flatten(a), /tostruct, /toarray) & ids = j.catalog.id
+	;ids = cmb_catalog_id_only(a)
 	print,'HAPI SERVER:', server
 	if KEYWORD_SET(plusinfo) then catalog = CREATE_STRUCT('server',server)
 	for jd = 0,n_elements(ids)-1 do begin

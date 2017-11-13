@@ -11,12 +11,14 @@ getdata = server + '/data?id=' + id $
 getdata = getdata  + '&include=header' 
 getdata = getdata  + '&format=' + format
 
-if 1 and n_elements(varnames) ne 0 then BEGIN
+if 1 and n_elements(varnames) ne 0  then BEGIN
+if varnames[0] ne '' then begin
    if varnames[0] ne '' or varnames[0] ne ' ' then begin
 	getdata = getdata + '&parameters=' + varnames[0]
 	nvars = n_elements(varnames)
 	for ivar = 1l, nvars-1 do getdata = getdata + ','+varnames[ivar]
    endif
+endif
 endif
 ;for debugging
 openw,/append,/GET_LUN, lun, 'hapidatarequests.txt'

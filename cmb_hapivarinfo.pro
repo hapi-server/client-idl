@@ -22,7 +22,8 @@ for i=0l,np-1 do begin
     ;if vname eq 'epoch' then vname = 'epochstring'
     ;if vname eq 'Epoch' then vname = 'Epoch11' ; Kludge due duplicate names.
     cmb_hapiextractbins, vinfo
-    meta = CREATE_STRUCT(meta, vname, vinfo)
+    meta = CREATE_STRUCT(meta, cmb_valid_var_name(vname), vinfo)
 endfor
+meta = CREATE_STRUCT(meta, 'hapidatasetinfo', info)
 return, meta
 end
