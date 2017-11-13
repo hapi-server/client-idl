@@ -6,6 +6,7 @@ For demo see hapi_demo.pro
 Example usage
 
 server = 'http://datashop.elasticbeanstalk.com/hapi'
+
 dataset = 'CASSINI_LEMMS_PHA_CHANNEL_1_SEC'
 
 dates=['2002-01-02T00:00:00.000','2002-01-02T06:00:00.000'  ]
