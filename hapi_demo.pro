@@ -1,5 +1,4 @@
 ; hapi_demo.pro
-
 print,'How to list servers'
 servers = hapi()
 goto, skip
@@ -58,10 +57,11 @@ dates = [date0, date1]
 print,'server: ', servers[iserver]
 print,'dataset: ', catalog[icat]
 print,' dates: ', dates
-varnames = cmb_hapi_varnames_from_meta(info)
+varnames = cmb_hapi_varnames_from_meta(info) ; to get variable names
+nvarnames = n_elements( varnames)
 d = hapi( servers[iserver],catalog[icat],varnames, dates[0], dates[1])
+;d = hapi( servers[iserver],catalog[icat],varnames[0:nvarnames/2], dates[0], dates[1]) ;loading subset of variables
+;d = hapi( servers[iserver],catalog[icat],varnamesdummy, dates[0], dates[1]) ;loading all variables, varnamesdummy is undefined
 help, d,/str
 help, d.data, d.meta,d.info,/str
-
-
 end
