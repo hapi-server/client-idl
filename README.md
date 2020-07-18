@@ -1,10 +1,17 @@
 # idl-client
+
 IDL client for obtaining data from a HAPI server
+
 Both the IDL source code and .sav file of code available for IDL 8.5 or greater.
-For demo see hapi_demo.pro
 
-Example usage
+For a demo see [hapi_demo.pro](https://github.com/hapi-server/client-idl/blob/master/hapi_demo.pro).
 
+## Installation
+
+
+## Example usage
+
+```
 server = 'http://datashop.elasticbeanstalk.com/hapi'
 
 dataset = 'CASSINI_LEMMS_PHA_CHANNEL_1_SEC'
@@ -18,3 +25,4 @@ d = hapi( server, dataset,varnames, dates[0], dates[1])
 help, d,/str
 
 help, d.data, d.meta,d.info,/str
+```
