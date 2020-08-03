@@ -26,6 +26,10 @@ varnames = ['Bx_SSO', 'By_SSO', 'Bz_SSO']
 
 d = hapi( server, dataset,varnames, dates[0], dates[1])
 
+;**** NOTE to load all variables in a dataset **** use this command 
+;     d = hapi( server, dataset,'', dates[0], dates[1]) ; this will load all the variables
+
+
 ; hapi returns structure d: data is in structure d.data, description of data is in structure d.meta
 help, d,d.data, /str
 
