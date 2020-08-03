@@ -7,8 +7,11 @@ Both the IDL source code and .sav file of code available for IDL 8.5 or greater.
 For a demo see [hapi_demo.pro](https://github.com/hapi-server/client-idl/blob/master/hapi_demo.pro).
 
 ## Installation
-Download file: hapi.sav and place in your idl or current working directory.
+```
+Download file: hapi.sav and place in your idl path or current working directory.
+
 Download file: hapi_demo.pro
+```
 ## Example usage
 
 ```
