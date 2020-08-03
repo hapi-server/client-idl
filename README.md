@@ -14,11 +14,11 @@ For a demo see [hapi_demo.pro](https://github.com/hapi-server/client-idl/blob/ma
 ```
 server = 'http://datashop.elasticbeanstalk.com/hapi'
 
-dataset = 'CASSINI_LEMMS_PHA_CHANNEL_1_SEC'
+dataset = 'CASSINI_MAG_HI_RES'
 
-dates=['2002-01-02T00:00:00.000Z','2002-01-02T06:00:00.000Z'  ]
+dates=['2004-183T00:00:00.000Z','2004-184T00:00:00.000Z']
 
-varnames = ['time_array_0', 'A', 'E', 'F1','A_uncert', 'E_uncert', 'F1_uncert', 'Bx_SZS', 'By_SZS', 'Bz_SZS', 'PA_for_LEMMS_LET', 'SunAngle_for_LEMMS_LET']
+varnames = ['Bx_SSO', 'By_SSO', 'Bz_SSO']
 
 d = hapi( server, dataset,varnames, dates[0], dates[1])
 
