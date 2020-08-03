@@ -45,5 +45,14 @@ apt = plot(CDF_EPOCH_TOJULDAYS(d.data.epoch), d.data.bx_sso, ytitle= d.meta.bx_s
 
 ```
 ## Example usage 2
-...
-...
+```
+; to list servers
+servers = hapi()
+
+; to list datasets on a server
+catalog = hapi( servers[1]) 
+
+; to list information about a dataset on a server
+info = hapi(servers[1], catalog[0])
+
+```
