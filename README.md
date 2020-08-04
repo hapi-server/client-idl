@@ -10,7 +10,7 @@ For a demo see [hapi_demo.pro](https://github.com/hapi-server/client-idl/blob/ma
 ```
 Download file: hapi.sav and place in your idl path or current working directory.
 
-Download file: hapi_demo.pro
+Download file: hapi_demo.pro, note not necessary to run hapi, but demonstrates how to use hapi.
 ```
 ## Example usage
 
