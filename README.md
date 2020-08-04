@@ -31,12 +31,12 @@ d = hapi( server, dataset,varnames, dates[0], dates[1])
 
 
 ; hapi returns structure d: data is in structure d.data, description of data is in structure d.meta
-help, d,d.data, /str
+help, d, /str
 
-;contents of data and meta structure
-help, d,d.data, d.meta,d.info, /str
+; contents of data, meta, and info structure
+help, d.data, d.meta, d.info, /str
 
-; information of specific variable
+; information on specific variable
 help, d.data.bx_sso, d.meta.bx_sso, /str
 
 ; time tag of data is in cdf_epoch
@@ -45,7 +45,7 @@ help, d.data.epoch
 ; to plot Bx component
 
 dummy = LABEL_DATE(DATE_FORMAT=['%H:%I'])  
-apt = plot(CDF_EPOCH_TOJULDAYS(d.data.epoch), d.data.bx_sso, ytitle= d.meta.bx_sso.name + ', ' + d.meta.bx_sso.units, XTICKFORMAT='LABEL_DATE', xtitle='HH:MM', title= dataset + '!c ' + dates[0] + ' to ' + dates[1] )
+apt = plot( CDF_EPOCH_TOJULDAYS(d.data.epoch), d.data.bx_sso, ytitle= d.meta.bx_sso.name + ', ' + d.meta.bx_sso.units, XTICKFORMAT='LABEL_DATE', xtitle='HH:MM', title= dataset + '!c ' + dates[0] + ' to ' + dates[1] )
 
 ```
 ## Example usage 2
@@ -57,6 +57,6 @@ servers = hapi()
 catalog = hapi( servers[1]) 
 
 ; to list information about a dataset on a server
-info = hapi(servers[1], catalog[0])
+info = hapi(servers[1], catalog[3])
 
 ```
