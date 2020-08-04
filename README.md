@@ -45,7 +45,10 @@ help, d.data.epoch
 ; to plot Bx component
 
 dummy = LABEL_DATE(DATE_FORMAT=['%H:%I'])  
-apt = plot( CDF_EPOCH_TOJULDAYS(d.data.epoch), d.data.bx_sso, ytitle= d.meta.bx_sso.name + ', ' + d.meta.bx_sso.units, XTICKFORMAT='LABEL_DATE', xtitle='HH:MM', title= dataset + '!c ' + dates[0] + ' to ' + dates[1] )
+apt = plot( CDF_EPOCH_TOJULDAYS(d.data.epoch), d.data.bx_sso, $
+           ytitle= d.meta.bx_sso.name + ', ' + d.meta.bx_sso.units, $
+           XTICKFORMAT='LABEL_DATE', $
+           xtitle='HH:MM', title= dataset + '!c ' + dates[0] + ' to ' + dates[1] )
 
 ```
 ## Example usage 2
