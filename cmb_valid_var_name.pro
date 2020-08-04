@@ -1,9 +1,17 @@
+;
+;Copyright 1996-2013 United States Government as represented by the
+;Administrator of the National Aeronautics and Space Administration.
+;All Rights Reserved.
+; This software may be used, copied, or redistributed as long as it is not
+; sold and this copyright notice is reproduced on each copy made.  This
+; routine is provided as is without any express or implied warranties
+; whatsoever.
+;
 
-function cmb_valid_var_name,as, notvalid=notvalid,filename=filename
+function cmb_valid_var_name,as, notvalid=notvalid,filename=filename,ivalid = ivalid
 ;Check if variable names in string array 'as' are  valid IDL variable names
 ;if not modify 'as' to make it valid by replacing invalid characters with '_'.
 asv = as
-
 for irec=0,n_elements(as)-1 do begin
     a = as[irec]
 a = strtrim(a,2)
@@ -34,7 +42,14 @@ for i=0,n_elements(notvalid)-1 do begin
 endfor
 
 asv[irec] = string(b)
+
+others = strlowcase(['Ne','Eq','lt','ge','le','gt'])
+
+for i=0,N_ELEMENTS(others)-1 do begin
+    if strlowcase(asv[irec]) eq others[i] then asv[irec] = '_' + asv[irec]
 endfor
+
+endfor ; irec
 
 return,asv
 end

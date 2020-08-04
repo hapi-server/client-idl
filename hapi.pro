@@ -13,7 +13,7 @@ case icase  OF
 1:return, cmb_hapidatashop_catalog( server, plusinfo=info)
 2:return, cmb_hapidatashop_info(dataset, server)
 else:begin
-    if n_elements(starttime) eq 0 or n_elements(starttime) eq 0 then message,'start/stop times must be specified:'
+    if n_elements(starttime) eq 0 or n_elements(stoptime) eq 0 then message,'start/stop times must be specified:'
     dates = [starttime,stoptime]
     help, server, dataset, dates
 	url = cmb_hapi_form_data_request_url( server, dataset, dates, format, parameters) ; data request URL
@@ -37,19 +37,18 @@ ENDCASE
 end
 
 
-;pro test
+pro test_hapi_client
 ;servers = hapi()
 ;vnames = hapi('http://datashop.elasticbeanstalk.com/hapi','Wind_EPACT_LEMT_Events_OMNI_5min_NE')
-;datasetid='WEYGAND_GEOTAIL_MAG_GSM'
-;parameters = ['B_GSM', 'position_GSM']
-;dates=['1999-07-01','1999-07-01T12:00:00.000'  ]
-;server = 'http://datashop.elasticbeanstalk.com/hapi'
-;d = hapi(server, datasetid, parameters, dates[0], dates[1])
+datasetid='WEYGAND_GEOTAIL_MAG_GSM'
+parameters = ['B_GSM', 'position_GSM']
+dates=['1999-07-01','1999-07-01T12:00:00.000'  ]
+server = 'http://datashop.elasticbeanstalk.com/hapi'
+d = hapi(server, datasetid, parameters, dates[0], dates[1])
 ;help, d
 ;fillval = d.meta.b_gsm.fill
 ;i=where( d.data.b_gsm[0] ne fillval)
 ;timesec = d.data.epoch & timesec = (timesec-timesec[0])/1d3
 ; ik = plot( timesec[i],(d.data.b_gsm[0])(i), ytitle='Bx', xtitle='TIME (s)')
-;stop
-;end
-
+stop
+end

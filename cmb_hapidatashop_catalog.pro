@@ -10,12 +10,13 @@ endfor
 return, ids
 end
 
-function cmb_hapidatashop_catalog,server , selectdataset=selectdataset, plusinfo=plusinfo
+function cmb_hapidatashop_catalog, server , selectdataset=selectdataset, plusinfo=plusinfo
 ; cat = cmb_hapidatashop_catalog(serverid, selectdataset=selectdataset)
 ; cat = cmb_hapidatashop_catalog(serverid, selectdataset=selectdataset,/plusinfo)
 	cataloga = server + '/catalog'
 	a = wget(cataloga,/string)
-	j = JSON_PARSE(cmb_str_flatten(a), /tostruct, /toarray) & ids = j.catalog.id
+	;j = JSON_PARSE(cmb_str_flatten(a), /tostruct, /toarray) & ids = j.catalog.id
+	j = cmb_jason_kludge(a) & ids = j.catalog.id
 	;ids = cmb_catalog_id_only(a)
 	print,'HAPI SERVER:', server
 	if KEYWORD_SET(plusinfo) then catalog = CREATE_STRUCT('server',server)

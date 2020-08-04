@@ -59,9 +59,24 @@ print,'dataset: ', catalog[icat]
 print,' dates: ', dates
 varnames = cmb_hapi_varnames_from_meta(info) ; to get variable names
 nvarnames = n_elements( varnames)
-d = hapi( servers[iserver],catalog[icat],varnames, dates[0], dates[1])
-;d = hapi( servers[iserver],catalog[icat],varnames[0:nvarnames/2], dates[0], dates[1]) ;loading subset of variables
-;d = hapi( servers[iserver],catalog[icat],varnamesdummy, dates[0], dates[1]) ;loading all variables, varnamesdummy is undefined
+print,'this dataset has ', nvarnames, ' variables'
+read,'input 1 to load all variables available or 0 to select subset:', ichoice
+if ichoice eq 1 then begin
+    d = hapi( servers[iserver],catalog[icat],varnamesdummy, dates[0], dates[1]) ;loading all variables, varnamesdummy is undefined 
+endif else begin
+    print,'list of variables'
+    for i=0, nvarnames-1 do print, i,' ', varnames[i]
+    sivar = ''
+    read,'input numbers of variables to load comma (,) delimited:', sivar
+    sivar = '[' + sivar + ']'
+    help, execute( 'ivar=' + sivar ) 
+    print, 'loading variables:',   varnames[ivar] 
+    d = hapi( servers[iserver],catalog[icat],varnames[ivar], dates[0], dates[1])
+    ;d = hapi( servers[iserver],catalog[icat],varnames[0:nvarnames/2], dates[0], dates[1]) ;loading subset of variables
+ENDELSE
+print,'server: ', servers[iserver]
+print,'dataset: ', catalog[icat]
 help, d,/str
 help, d.data, d.meta,d.info,/str
+print,'variables: ', tag_names(d.data)
 end
