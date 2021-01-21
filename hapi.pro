@@ -39,16 +39,40 @@ end
 
 pro test_hapi_client
 ;servers = hapi()
-;vnames = hapi('http://datashop.elasticbeanstalk.com/hapi','Wind_EPACT_LEMT_Events_OMNI_5min_NE')
-datasetid='WEYGAND_GEOTAIL_MAG_GSM'
-parameters = ['B_GSM', 'position_GSM']
-dates=['1999-07-01','1999-07-01T12:00:00.000'  ]
+; start IDL session
 server = 'http://datashop.elasticbeanstalk.com/hapi'
-d = hapi(server, datasetid, parameters, dates[0], dates[1])
-;help, d
-;fillval = d.meta.b_gsm.fill
-;i=where( d.data.b_gsm[0] ne fillval)
-;timesec = d.data.epoch & timesec = (timesec-timesec[0])/1d3
-; ik = plot( timesec[i],(d.data.b_gsm[0])(i), ytitle='Bx', xtitle='TIME (s)')
+
+dataset = 'CASSINI_MAG_HI_RES'
+
+dates=['2004-183T00:00:00.000Z','2004-184T00:00:00.000Z']
+
+varnames = ['Bx_SSO', 'By_SSO', 'Bz_SSO']
+
+d = hapi( server, dataset,varnames, dates[0], dates[1])
+
+;**** NOTE to load all variables in a dataset **** use this command 
+;     d = hapi( server, dataset,'', dates[0], dates[1]) ; this will load all the variables
+
+
+; hapi returns structure d: data is in structure d.data, description of data is in structure d.meta
+help, d, /str
+
+; contents of data, meta, and info structure
+help, d.data, d.meta, d.info, /str
+
+; information on specific variable
+help, d.data.bx_sso, d.meta.bx_sso, /str
+
+; time tag of data is in cdf_epoch
+help, d.data.epoch
+
+; to plot Bx component
+
+dummy = LABEL_DATE(DATE_FORMAT=['%H:%I'])  
+apt = plot( CDF_EPOCH_TOJULDAYS(d.data.epoch), d.data.bx_sso, $
+           ytitle= d.meta.bx_sso.name + ', ' + d.meta.bx_sso.units, $
+           XTICKFORMAT='LABEL_DATE', $
+           xtitle='HH:MM', title= dataset + '!c ' + dates[0] + ' to ' + dates[1] )
+
 stop
 end
