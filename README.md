@@ -50,6 +50,15 @@ apt = plot( CDF_EPOCH_TOJULDAYS(d.data.epoch), d.data.bx_sso, $
            XTICKFORMAT='LABEL_DATE', $
            xtitle='HH:MM', title= dataset + '!c ' + dates[0] + ' to ' + dates[1] )
 
+
+; Note hapi appends the url called by hapi.pro to a local file called: hapidatarequests.txt
+; this file can be deleted and doesn't affect how the code runs
+; $ cat hapidatarequests.txt
+; http://datashop.elasticbeanstalk.com/hapi/data?id=CASSINI_MAG_HI_RES&time.min=2004-183T00:00:00.000Z&time.max=2004-184T00:00:00.000Z&include=header&format=csv&parameters=Bx_SSO,By_SSO,Bz_SSO
+
+
+
+
 ```
 ## Example usage 2
 ```
