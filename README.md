@@ -1,6 +1,8 @@
 # idl-client
 
-IDL client for obtaining data from a HAPI server
+IDL client for obtaining data from a HAPI server.
+
+Note that there is also another IDL client that is a part of SPEDAS; see https://github.com/hapi-server/client-idl-spedas
 
 Both the IDL source code and .sav file of code available for IDL 8.5 or greater.
 
