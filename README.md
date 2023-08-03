@@ -39,7 +39,7 @@ help, d, /str
 help, d.data, d.meta, d.info, /str
 
 ; information on specific variable
-help, d.data.bx_sso, d.meta.bx_sso, /str
+help, d.data.BGSM, d.meta.BGSM, /str
 
 ; time tag of data is in cdf_epoch
 help, d.data.epoch
