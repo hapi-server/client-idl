@@ -18,13 +18,13 @@ Download file: hapi_demo.pro, note not necessary to run hapi, but demonstrates h
 
 ```
 ; start IDL session
-server = 'http://datashop.elasticbeanstalk.com/hapi'
+server = 'https://cdaweb.gsfc.nasa.gov/hapi'
 
-dataset = 'CASSINI_MAG_HI_RES'
+dataset = 'WI_H2_MFI'
 
-dates=['2004-183T00:00:00.000Z','2004-184T00:00:00.000Z']
+dates=['1994-11-13T15:50:26.000Z','1994-11-13T16:50:26.000Z']
 
-varnames = ['Bx_SSO', 'By_SSO', 'Bz_SSO']
+varnames = ['BF1', 'BGSM']
 
 d = hapi( server, dataset,varnames, dates[0], dates[1])
 
@@ -44,11 +44,11 @@ help, d.data.bx_sso, d.meta.bx_sso, /str
 ; time tag of data is in cdf_epoch
 help, d.data.epoch
 
-; to plot Bx component
+; to plot Bx of BGSM component
 
 dummy = LABEL_DATE(DATE_FORMAT=['%H:%I'])  
-apt = plot( CDF_EPOCH_TOJULDAYS(d.data.epoch), d.data.bx_sso, $
-           ytitle= d.meta.bx_sso.name + ', ' + d.meta.bx_sso.units, $
+apt = plot( CDF_EPOCH_TOJULDAYS(d.data.epoch), d.data.bgsm[0], $
+           ytitle= d.meta.bgsm.name + '_X, ' + d.meta.bgsm.units, $
            XTICKFORMAT='LABEL_DATE', $
            xtitle='HH:MM', title= dataset + '!c ' + dates[0] + ' to ' + dates[1] )
 
@@ -66,11 +66,13 @@ apt = plot( CDF_EPOCH_TOJULDAYS(d.data.epoch), d.data.bx_sso, $
 ```
 ; to list servers
 servers = hapi()
+for i=0,n_elements(servers)-1 do print,i,' ', servers[i]
 
 ; to list datasets on a server
 catalog = hapi( servers[1]) 
+help, catalog
 
 ; to list information about a dataset on a server
 info = hapi(servers[1], catalog[3])
-
+help, info
 ```
