@@ -1,4 +1,4 @@
-; hapi_demo.pro
+; .compile hapi_demo.pro
 print,'How to list servers'
 servers = hapi()
 goto, skip
@@ -44,38 +44,69 @@ print,'input index of server for which to retrieve its catalog'
 read, iserver
 print,' How to retrieve the HAPI catalog with info'
 catalog = hapi( servers[iserver])
+
 print, ' list of datasets on server ', servers[iserver]
+catsearch=''
+refinecat:
+
+if catsearch ne '' and catsearch ne ' ' then begin
+  ip = strpos( strlowcase(catalog), strlowcase(catsearch))
+  ip = where( ip ge 0)
+  if ip[0] eq -1 then begin
+    print,'bad search criteria, redo: ', catsearch
+    read,'input search string (i.e. mms etc.):', catsearch
+    goto, refinecat
+  endif
+  catalog = catalog[ip]
+endif
 for i=0,N_ELEMENTS(catalog)-1 do print,i,' ', catalog[i]
-read,' input index of dataset:', icat
+read,' input index of dataset or -1 to refine catalog list:', icat
+if icat eq -1 then begin
+  read,'input search string (i.e. mms etc.):', catsearch
+  goto, refinecat
+endif
 info = hapi(servers[iserver], catalog[icat]) ; request info on variables for id in catalogue
 help, info,/str
 help, info.HAPIDATASETINFO
+date0 = info.HAPIDATASETINFO.startdate
+date1 = info.HAPIDATASETINFO.stopdate
 date0 = '' & date1 = ''
-read,'input start date in form yyyy-mm-ddThh:mm:ss.sss: ', date0
-read,'input stop date in form yyyy-mm-ddThh:mm:ss.sss: ', date1
+date0 = info.HAPIDATASETINFO.startdate
+ep0 = sab_string2epoch(date0)
+ep1 = ep0+ long64(1*3600d9)
+date0 = cmb_date(ep0)
+date1 = cmb_date(ep1)
+date_check:
+;read,'input start date in form yyyy-mm-ddThh:mm:ss.sss: ', date0
+;read,'input stop date in form yyyy-mm-ddThh:mm:ss.sss: ', date1
 dates = [date0, date1]
+
+print,' dates: ', dates
+;print,'input if the dates are correct ', icheck
+;if icheck ne 1 then goto, date_check
 print,'server: ', servers[iserver]
 print,'dataset: ', catalog[icat]
-print,' dates: ', dates
+
 varnames = cmb_hapi_varnames_from_meta(info) ; to get variable names
 nvarnames = n_elements( varnames)
 print,'this dataset has ', nvarnames, ' variables'
 read,'input 1 to load all variables available or 0 to select subset:', ichoice
 if ichoice eq 1 then begin
-    d = hapi( servers[iserver],catalog[icat],varnamesdummy, dates[0], dates[1]) ;loading all variables, varnamesdummy is undefined 
+    d = hapi( servers[iserver],catalog[icat],varnamesdummy, dates[0], dates[1]) ;loading all variables, varnamesdummy is undefined
 endif else begin
     print,'list of variables'
     for i=0, nvarnames-1 do print, i,' ', varnames[i]
     sivar = ''
     read,'input numbers of variables to load comma (,) delimited:', sivar
     sivar = '[' + sivar + ']'
-    help, execute( 'ivar=' + sivar ) 
-    print, 'loading variables:',   varnames[ivar] 
+    help, execute( 'ivar=' + sivar )
+    print, 'loading variables:',   varnames[ivar]
     d = hapi( servers[iserver],catalog[icat],varnames[ivar], dates[0], dates[1])
     ;d = hapi( servers[iserver],catalog[icat],varnames[0:nvarnames/2], dates[0], dates[1]) ;loading subset of variables
 ENDELSE
 print,'server: ', servers[iserver]
 print,'dataset: ', catalog[icat]
+print,'dates:', dates
 help, d,/str
 help, d.data, d.meta,d.info,/str
 print,'variables: ', tag_names(d.data)

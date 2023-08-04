@@ -5,7 +5,7 @@ bins = vinfo.bins
 n = n_elements(bins)
 ;depends_info = bins.ToArray()
 depends_info = sab_toarray(bins)
- help, depends_info ;& stop
+ ;help, depends_info ;& stop
 depends = 'depend' + string(([lindgen(n)+1]),format='(i1)')
 for i=0,n-1 do begin
     a = depends_info[i]
@@ -18,5 +18,6 @@ for i=0,n-1 do begin
     if cmb_tag_name_exists('ranges',a) then ranges = a.ranges.ToArray() else ranges=''
     rec = {name:name, units:units, fill:fill, centers:centers, ranges:ranges}
     vinfo =CREATE_STRUCT(vinfo, depends[i], rec)
+    if name eq strlowcase('complex') then stop
 endfor
 end

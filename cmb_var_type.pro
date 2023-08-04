@@ -8,7 +8,7 @@
 ; whatsoever.
 ;
 
-;equivalent to IDL's typename introduce in 8.0
+;equivalent to IDL's typename introduced in 8.0
 function cmb_var_type,a
 si = size(a,/str)
 return,si.type_name

@@ -1,0 +1,1 @@
+https://cdaweb.gsfc.nasa.gov/hapi/data?id=WI_H2_MFI&time.min=1994-11-13T15:50:26.000Z&time.max=1994-11-13T16:50:26.000Z&include=header&format=csv&parameters=BF1,BGSM

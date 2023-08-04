@@ -1,4 +1,4 @@
-function cmb_hapi_form_data_request_url, server, id, dates, format, varnames
+function cmb_hapi_form_data_request_url, server, id, dates, format, varnames, noheader = noheader
 ; url = cmb_hapi_form_data_request_url( server, id, dates, format, varnames)
 ; PURPOSE: construct HAPI server data request URL.
 ; url examples
@@ -8,7 +8,7 @@ getdata = server + '/data?id=' + id $
         + '&time.min=' $
         + dates[0] + '&time.max=' $
         + dates[1]
-getdata = getdata  + '&include=header' 
+if KEYWORD_SET(noheader) eq 0 then getdata = getdata  + '&include=header' 
 getdata = getdata  + '&format=' + format
 
 if 1 and n_elements(varnames) ne 0  then BEGIN

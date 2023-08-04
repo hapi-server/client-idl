@@ -1,6 +1,6 @@
 function cmb_hapi_csv, url, header=head, j= j
 ; s = cmb_hapi_csv( url, header=header, j= j)
-		data = wget( url,/string)
+		data = wget( url, /string)
 		; separate header from data
 		ip = where( strmid(data,0,1) eq '#')
 		head = data[ip]

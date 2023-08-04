@@ -14,6 +14,7 @@ function cmb_valid_var_name,as, notvalid=notvalid,filename=filename,ivalid = iva
 asv = as
 for irec=0,n_elements(as)-1 do begin
     a = as[irec]
+    a = cmb_unichar2hex(a,character_type) ;kludge for unicode SAB 8/13/2021
 a = strtrim(a,2)
 ;a = strlowcase(a)
 a0 = (byte('a'))(0)
